@@ -11,12 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class HomePage extends AppCompatActivity {
 
-<<<<<<< Updated upstream
-    Button signOutButton;
-=======
     Button signOutButton, sightingsButton, seeMap;
-
->>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +20,7 @@ public class HomePage extends AppCompatActivity {
 
         seeMap = findViewById(R.id.seeMapButton);
         signOutButton = findViewById(R.id.signOutButton);
+        sightingsButton = findViewById(R.id.toSightings);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,8 +29,6 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
-<<<<<<< Updated upstream
-=======
         sightingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,7 +42,7 @@ public class HomePage extends AppCompatActivity {
                 startActivity(new Intent(HomePage.this, MapsActivity.class));
             }
         });
->>>>>>> Stashed changes
+
 
     }
 }
