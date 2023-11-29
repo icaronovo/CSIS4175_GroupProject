@@ -6,6 +6,5 @@
     <string name="PasswordTextField">Password</string>
     <string name="SignUpText">Sign up</string>
     <string name="SignOutText">Sign out</string>
-    <string name="maps_api_key">AIzaSyBj3ZqS_RpjembYbBO5dvZvaN0nIVej3Ws</string>
     <string name="title_activity_maps">MapsActivity</string>
 </resources>

@@ -42,7 +42,7 @@ public class HomePage extends AppCompatActivity {
 
         signOutButton = findViewById(R.id.signOutButton);
         sightingsButton = findViewById(R.id.toSightings);
-        animalInfoButton = findViewById(R.id.animalInfoButton);
+        animalInfoButton = findViewById(R.id.toAnimals);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
