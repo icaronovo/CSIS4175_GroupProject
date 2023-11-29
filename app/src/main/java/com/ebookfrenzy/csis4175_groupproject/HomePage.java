@@ -19,6 +19,8 @@ public class HomePage extends AppCompatActivity {
     Button signOutButton;
     Button sightingsButton;
 
+    Button animalInfoButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class HomePage extends AppCompatActivity {
 
         signOutButton = findViewById(R.id.signOutButton);
         sightingsButton = findViewById(R.id.toSightings);
+        animalInfoButton = findViewById(R.id.animalInfoButton);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,6 +55,13 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomePage.this, Sightings.class));
+            }
+        });
+
+        animalInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomePage.this, AnimalInfoList.class));
             }
         });
 
