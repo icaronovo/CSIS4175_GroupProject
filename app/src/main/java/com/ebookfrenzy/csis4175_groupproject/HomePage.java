@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class HomePage extends AppCompatActivity {
 
     Button signOutButton;
+    Button sightingsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +20,19 @@ public class HomePage extends AppCompatActivity {
         setContentView(R.layout.activity_home_page);
 
         signOutButton = findViewById(R.id.signOutButton);
+        sightingsButton = findViewById(R.id.toSightings);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(HomePage.this, Login.class));
+            }
+        });
+
+        sightingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomePage.this, Sightings.class));
             }
         });
 
