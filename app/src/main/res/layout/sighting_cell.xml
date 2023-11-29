@@ -9,7 +9,7 @@
     app:cardCornerRadius="8dp"
     app:strokeWidth="0dp"
     app:strokeColor="@android:color/transparent"
-    app:cardBackgroundColor="@color/md_theme_light_surfaceVariant"
+    app:cardBackgroundColor="@color/md_theme_light_secondaryContainer"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,6 +70,7 @@
             android:layout_marginEnd="16dp"
             android:text="Show in map"
             android:fontFamily="@font/opensanssemibold"
+            android:background="@drawable/button_corner_radius"
             />
 
 
