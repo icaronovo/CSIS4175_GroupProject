@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "989154028257",
+    "project_id": "lookabear-e7eaf",
+    "storage_bucket": "lookabear-e7eaf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989154028257:android:66d768c10ea83d89ae25a0",
+        "android_client_info": {
+          "package_name": "com.ebookfrenzy.csis4175_groupproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9k3_Lbbq6h0Ez4T3sngrtRocGfkLO2NU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989154028257:android:c28f53ca46abd999ae25a0",
+        "android_client_info": {
+          "package_name": "com.ebookfrenzy.wildencounters"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9k3_Lbbq6h0Ez4T3sngrtRocGfkLO2NU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CSIS4175_GroupProject</string>
+    <string name="LoginPageTitleText">Login</string>
+    <string name="UsernameTextField">Username</string>
+    <string name="PasswordTextField">Password</string>
+    <string name="SignUpText">Sign up</string>
+    <string name="SignOutText">Sign out</string>
+</resources>
