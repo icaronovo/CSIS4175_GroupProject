@@ -1,17 +1,21 @@
 package com.ebookfrenzy.csis4175_groupproject;
 
+import com.google.type.DateTime;
+
 public class AnimalSighting {
     private String userID;
     private String animalType;
     private double latitude;
     private double longitude;
     private String description;
+    private long dateTime;
 
-    public AnimalSighting(String userID, String animalType, double latitude, double longitude, String description) {
+    public AnimalSighting(String userID, String animalType, double latitude, double longitude, String description, long dateTime) {
         this.animalType = animalType;
         this.latitude = latitude;
         this.longitude = longitude;
         this.description = description;
+        this.dateTime = dateTime;
     }
 
     public String getUserID() {
@@ -54,6 +58,13 @@ public class AnimalSighting {
         this.description = description;
     }
 
+    public long getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(long dateTime) {
+        this.dateTime = dateTime;
+    }
 
 
 

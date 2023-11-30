@@ -51,7 +51,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         getCurrentLocation();
         getAllSightings();
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -67,7 +66,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         if (task.isSuccessful()) {
                             sightings = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                sightings.add(new AnimalSighting(document.getString("user"), document.getString("animal"), document.getDouble("latitude"), document.getDouble("longitude"), document.getString("description")));
+                                sightings.add(new AnimalSighting(document.getString("user"), document.getString("animal"), document.getDouble("latitude"), document.getDouble("longitude"), document.getString("description"), document.getLong("dateTime")));
                                 Log.d(TAG, document.getId() + " => " + document.getData());
                             }
                             updateMapWithAllSightings();
@@ -83,7 +82,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             for(AnimalSighting a : sightings) {
                 mMap.addMarker(new MarkerOptions().position(new LatLng(a.getLatitude(), a.getLongitude())).title(a.getAnimalType()));
             }
-            mMap.addMarker(new MarkerOptions().position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())).title("Current location"));
+            //mMap.addMarker(new MarkerOptions().position(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())).title("Current location"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude())));
         }
     }

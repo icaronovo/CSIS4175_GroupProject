@@ -62,8 +62,10 @@ public class HomePage extends AppCompatActivity {
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(HomePage.this, Login.class));
+                addDataToDatabase();
+
+//                FirebaseAuth.getInstance().signOut();
+//                startActivity(new Intent(HomePage.this, Login.class));
             }
         });
 
@@ -85,7 +87,6 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getCurrentLocation();
-
                 startActivity(sendData);
             }
         });
@@ -111,5 +112,53 @@ public class HomePage extends AppCompatActivity {
                 Toast.makeText(this, "Error finding your location.", Toast.LENGTH_LONG);
             }
         });
+    }
+
+    public void addDataToDatabase () {
+
+        List<AnimalSighting> dummyData = new ArrayList<>();
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Bear", 40.7128, -74.0060, "Saw a bear near the river.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Moose", 36.7783, -119.4179, "Moose spotted in the forest.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Deer", 34.0522, -118.2437, "Observed a group of deer grazing.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Eagle", 41.8781, -87.6298, "Saw an eagle flying in the sky.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Fox", 37.7749, -122.4194, "Fox seen near the hiking trail.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Owl", 51.5074, -0.1278, "Spotted an owl in a tree at night.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Raccoon", 45.4215, -75.6993, "Encountered a raccoon near the park.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Squirrel", 34.0522, -118.2437, "Friendly squirrel approached for food.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Coyote", 37.7749, -122.4194, "Coyote observed in the open field.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Hawk", 40.7128, -74.0060, "Hawk soaring high above.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Bear", 42.3601, -71.0589, "A majestic brown bear spotted near a tranquil river. The bear was peacefully fishing for salmon, showcasing the beauty of wildlife in its natural habitat. This sighting left a lasting impression on the observer.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Moose", 44.0682, -114.7420, "Encountered a moose in the dense pine forest. Its antlers were remarkable, and it moved gracefully through the trees. A serene moment capturing the essence of the wilderness.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Eagle", 37.7749, -122.4194, "Witnessed a magnificent bald eagle soaring high above the cliffs. Its wingspan was awe-inspiring, a symbol of freedom and strength. An unforgettable sight amidst the breathtaking landscapes.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Fox", 48.8566, 2.3522, "Spotted a playful fox near a meadow. The orange fur stood out against the green grass, and the fox exhibited curious behavior, making it a delightful and heartwarming encounter.", System.currentTimeMillis()));
+        dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Deer", 36.7783, -119.4179, "A family of deer grazing in a sunlit clearing. The fawns were adorable, and the scene captured the tranquility of the forest. Nature's beauty at its finest.", System.currentTimeMillis()));
+        for (AnimalSighting a : dummyData) {
+
+            Map<String, Object> sighting = new HashMap<>();
+            sighting.put("user", a.getUserID());
+            sighting.put("latitude", a.getLatitude());
+            sighting.put("longitude", a.getLongitude());
+            sighting.put("animal", a.getAnimalType());
+            sighting.put("description", a.getDescription());
+            sighting.put("dateTime", a.getDateTime());
+
+            db.collection("sightings").add(sighting)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
+        }
+
+
+
+
+
     }
 }

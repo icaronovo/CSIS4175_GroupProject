@@ -49,8 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegisterSighting"
-            android:theme="@style/pop_up_window_style"/>
+        <activity android:name=".RegisterSighting" />
     </application>
 
 </manifest>

@@ -55,13 +55,6 @@ public class RegisterSighting extends Activity {
         descriptionTextEdit = findViewById(R.id.descriptionTextEdit);
         submit = findViewById(R.id.submit);
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        getWindow().setLayout((int) (width * 0.9), (int) (height * 0.80));
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,7 +82,7 @@ public class RegisterSighting extends Activity {
                                 Log.w(TAG, "Error adding document", e);
                             }
                         });
-
+                startActivity(new Intent(RegisterSighting.this, HomePage.class));
             }
         });
 
