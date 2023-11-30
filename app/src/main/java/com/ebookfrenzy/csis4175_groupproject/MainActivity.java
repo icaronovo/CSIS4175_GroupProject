@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+//            Intent sendData = new Intent();
+//            sendData.putExtra("UID", currentUser.getUid());
+            Log.d("-----UID", currentUser.getUid());
             startActivity(new Intent(MainActivity.this, HomePage.class));
             finish();
         } else {

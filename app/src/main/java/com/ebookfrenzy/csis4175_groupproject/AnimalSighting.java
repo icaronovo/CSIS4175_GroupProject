@@ -1,16 +1,25 @@
 package com.ebookfrenzy.csis4175_groupproject;
 
 public class AnimalSighting {
+    private String userID;
     private String animalType;
     private double latitude;
     private double longitude;
     private String description;
 
-    public AnimalSighting(String animalType, double latitude, double longitude, String description) {
+    public AnimalSighting(String userID, String animalType, double latitude, double longitude, String description) {
         this.animalType = animalType;
         this.latitude = latitude;
         this.longitude = longitude;
         this.description = description;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getAnimalType() {
@@ -44,4 +53,8 @@ public class AnimalSighting {
     public void setDescription(String description) {
         this.description = description;
     }
+
+
+
+
 }
