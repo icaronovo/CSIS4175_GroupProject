@@ -5,7 +5,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,18 @@ public class AnimalInfoList extends AppCompatActivity {
         adapter = new AnimalInfoAdapter(animals);
 
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = recyclerView.getChildAdapterPosition(view);
+                if (pos != RecyclerView.NO_POSITION) {
+                    Intent intent = new Intent(AnimalInfoList.this, AnimalDetails.class);
+                    intent.putExtra("animal", adapter.getAnimals().get(pos));
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

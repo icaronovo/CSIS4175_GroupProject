@@ -1,5 +1,8 @@
 package com.ebookfrenzy.csis4175_groupproject;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,16 @@ public class AnimalInfoAdapter extends RecyclerView.Adapter<AnimalInfoAdapter.Vi
         this.animals = animals;
     }
 
+    public ArrayList<String> getAnimals() {
+        return animals;
+    }
+
+    private View.OnClickListener onItemClickListener; // Click listener for the items
+
+    public void setOnItemClickListener(View.OnClickListener listener) {
+        onItemClickListener = listener;
+    }
+
     // Called when RecyclerView needs a new ViewHolder for creating a new cell
     @NonNull
     @Override
@@ -34,6 +47,10 @@ public class AnimalInfoAdapter extends RecyclerView.Adapter<AnimalInfoAdapter.Vi
         // Retrieve the AnimalSighting object at the given position
         String animal = animals.get(position);
         holder.animalName.setText(animal);
+
+        holder.itemView.setOnClickListener(onItemClickListener);
+
+
     }
 
     @Override
@@ -52,4 +69,5 @@ public class AnimalInfoAdapter extends RecyclerView.Adapter<AnimalInfoAdapter.Vi
             animalName = itemView.findViewById(R.id.animal);
         }
     }
+
 }
