@@ -63,6 +63,9 @@ public class RegisterSighting extends Activity {
                 // DESCOMENTAR NO FUTURO////////////////////////////////////////////////////////////////////////////////
 //                user = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 // DESCOMENTAR NO FUTURO////////////////////////////////////////////////////////////////////////////////
+//                -123.02345629781483
+//                49.21722633954609
+//                "ljGBOI0qpMZPhubJB9jV2N7d9E32"
 
                 // EXCLUIR NO FUTURO////////////////////////////////////////////////////////////////////////////////
                 user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";

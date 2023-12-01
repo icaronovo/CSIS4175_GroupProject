@@ -2,6 +2,8 @@ package com.ebookfrenzy.csis4175_groupproject;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -10,6 +12,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,12 +22,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,19 +37,24 @@ import java.util.List;
 import java.util.Map;
 
 
-public class HomePage extends AppCompatActivity {
+public class HomePage extends AppCompatActivity implements MapFragment.OnLocationSelectedListener {
 
     Button signOutButton;
     Button sightingsButton;
     Button registerSighting;
     Button animalInfoButton;
     Button mySightingsButton;
+    Button setHomeLocation;
     Intent sendData;
-
     private FusedLocationProviderClient fusedLocationProviderClient;
     private Location currentLocation;
     static final int REQUEST_CODE = 101;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    Double clickedLatitude;
+    Double clickedLongitude;
+    String user;
+    Double homeLatitude;
+    Double homeLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +71,14 @@ public class HomePage extends AppCompatActivity {
         sightingsButton = findViewById(R.id.toSightings);
         animalInfoButton = findViewById(R.id.toAnimals);
         mySightingsButton = findViewById(R.id.toMySightings);
+        setHomeLocation = findViewById(R.id.registerHomeLocation);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addDataToDatabase();
+                //addDataToDatabase();
 
-//                FirebaseAuth.getInstance().signOut();
-//                startActivity(new Intent(HomePage.this, Login.class));
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(HomePage.this, Login.class));
             }
         });
 
@@ -95,8 +106,46 @@ public class HomePage extends AppCompatActivity {
         registerSighting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getCurrentLocation();
+                if (clickedLatitude != null) {
+                    sendData.putExtra("Lat", clickedLatitude);
+                    sendData.putExtra("Lon", clickedLongitude);
+                } else {
+                    getCurrentLocation();
+                }
+
                 startActivity(sendData);
+            }
+        });
+
+        setHomeLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //user = FirebaseAuth.getInstance().getCurrentUser().getUid()
+                user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
+
+                if (clickedLatitude == null || clickedLongitude == null) {
+                    Toast.makeText(HomePage.this, "Please select a place on the map", Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    Map<String, Object> homeLocation = new HashMap<>();
+                    homeLocation.put("user", user);
+                    homeLocation.put("latitude", clickedLatitude.toString());
+                    homeLocation.put("longitude", clickedLongitude.toString());
+
+                    db.collection("homeLocations").add(homeLocation).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Intent intent = getIntent();
+                            finish();
+                            startActivity(intent);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
+                }
             }
         });
     }
@@ -159,10 +208,37 @@ public class HomePage extends AppCompatActivity {
                         }
                     });
         }
-
-
-
-
-
     }
+
+    @Override
+    public void onLocationSelected(double latitude, double longitude) {
+        clickedLatitude = latitude;
+        clickedLongitude = longitude;
+    }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (isGranted) {
+                    // FCM SDK (and your app) can post notifications.
+                } else {
+                    // TODO: Inform user that that your app will not show notifications.
+                }
+            });
+
+    private void askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                    PackageManager.PERMISSION_GRANTED) {
+                // FCM SDK (and your app) can post notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+            }
+        }
+    }
+
+
+
+
 }
