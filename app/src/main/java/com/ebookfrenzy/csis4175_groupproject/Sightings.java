@@ -43,36 +43,47 @@ public class Sightings extends AppCompatActivity {
         // Enable the back button in the ActionBar
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        sightings = getAllSightings();
+        getAllSightings(sightings -> {
+            recyclerView = findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            adapter = new AnimalSightingAdapter(sightings);
 
-        adapter = new AnimalSightingAdapter(sightings);
+            recyclerView.setAdapter(adapter);
+        });
 
-        recyclerView.setAdapter(adapter);
+//        sightings = getAllSightings();
+//
+//        recyclerView = findViewById(R.id.recyclerView);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//
+//        adapter = new AnimalSightingAdapter(sightings);
+//
+//        recyclerView.setAdapter(adapter);
     }
 
-
-
-    private List<AnimalSighting> getAllSightings() {
-        sightings = new ArrayList<>();
-        db.collection("sightings").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        sightings.add(new AnimalSighting(document.getString("user"), document.getString("animal"), document.getDouble("latitude"), document.getDouble("longitude"), document.getString("description"), document.getLong("dateTime")));
-                        Log.d("ArrayList size", String.valueOf(sightings.size()));
-                        Log.d(TAG, document.getId() + " => " + document.getData());
-                    }
-                } else {
-                    Log.w(TAG, "Error getting documents.", task.getException());
+    private void getAllSightings(FirestoreCallback firestoreCallback) {
+        List<AnimalSighting> sightings = new ArrayList<>();
+        db.collection("sightings").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                int i = 0;
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    sightings.add(new AnimalSighting(document.getString("user"), document.getString("animal"),
+                            document.getDouble("latitude"), document.getDouble("longitude"),
+                            document.getString("description"), document.getLong("dateTime")));
+                    Log.d("ArrayList size", String.valueOf(sightings.size()));
+                    Log.d("Document info", sightings.get(i).getAnimalType());
+                    Log.d("Document info", sightings.get(i).getDescription());
+                    Log.d("Document info", String.valueOf(sightings.get(i).getLatitude()));
+                    Log.d("Document info", String.valueOf(sightings.get(i).getLongitude()));
+                    i++;
+                    Log.d(TAG, document.getId() + " => " + document.getData());
                 }
+                firestoreCallback.onCallback(sightings); // Notify callback with the data
+            } else {
+                Log.w(TAG, "Error getting documents.", task.getException());
             }
         });
-        Log.d("ArrayList size", String.valueOf(sightings.size()));
-        return sightings;
     }
 
     @Override
@@ -101,4 +112,11 @@ public class Sightings extends AppCompatActivity {
 
         return dummyData;
     }
+
+    public interface FirestoreCallback {
+        void onCallback(List<AnimalSighting> sightings);
+    }
+
+
 }
+

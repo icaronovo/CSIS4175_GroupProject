@@ -64,7 +64,7 @@ public class RegisterSighting extends Activity {
 //                user = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 // DESCOMENTAR NO FUTURO////////////////////////////////////////////////////////////////////////////////
 
-
+                // EXCLUIR NO FUTURO////////////////////////////////////////////////////////////////////////////////
                 user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
 
                 Map<String, Object> sighting = new HashMap<>();

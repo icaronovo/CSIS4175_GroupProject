@@ -16,7 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSIS4175_GroupProject"
         tools:targetApi="31">
-
+        <activity
+            android:name=".MySightings"
+            android:exported="false" />
+        <activity
+            android:name=".PopUpActivity"
+            android:backgroundDimEnabled="true"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".AnimalDetails"
             android:exported="false" />

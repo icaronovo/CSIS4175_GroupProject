@@ -38,6 +38,7 @@ public class HomePage extends AppCompatActivity {
     Button sightingsButton;
     Button registerSighting;
     Button animalInfoButton;
+    Button mySightingsButton;
     Intent sendData;
 
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -59,6 +60,7 @@ public class HomePage extends AppCompatActivity {
         signOutButton = findViewById(R.id.signOutButton);
         sightingsButton = findViewById(R.id.toSightings);
         animalInfoButton = findViewById(R.id.toAnimals);
+        mySightingsButton = findViewById(R.id.toMySightings);
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,6 +82,13 @@ public class HomePage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomePage.this, AnimalInfoList.class));
+            }
+        });
+
+        mySightingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomePage.this, MySightings.class));
             }
         });
 

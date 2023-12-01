@@ -1,9 +1,12 @@
 package com.ebookfrenzy.csis4175_groupproject;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +16,7 @@ import java.util.Locale;
 
 public class AnimalSightingAdapter extends RecyclerView.Adapter<AnimalSightingAdapter.ViewHolder> {
 
-    private List<AnimalSighting> sightings;
+    private static List<AnimalSighting> sightings;
 
     public AnimalSightingAdapter(List<AnimalSighting> sightings) {
         this.sightings = sightings;
@@ -47,12 +50,24 @@ public class AnimalSightingAdapter extends RecyclerView.Adapter<AnimalSightingAd
         TextView animalTypeTextView;
         TextView locationTextView;
         TextView descriptionTextView;
+        Button showInMap;
 
         ViewHolder(View itemView) {
             super(itemView);
             animalTypeTextView = itemView.findViewById(R.id.animalTypeTextView);
             locationTextView = itemView.findViewById(R.id.locationTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            showInMap = itemView.findViewById(R.id.sightingButton);
+
+            showInMap.setOnClickListener(view -> {
+                // Retrieve the AnimalSighting object at the clicked position
+                AnimalSighting sighting = sightings.get(getAdapterPosition());
+
+                // Create an intent to start the MapPopupActivity
+                Intent intent = new Intent(itemView.getContext(), PopUpActivity.class);
+                intent.putExtra("animalSighting", sighting);
+                itemView.getContext().startActivity(intent);
+            });
         }
     }
 }

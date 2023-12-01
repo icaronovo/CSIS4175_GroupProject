@@ -1,8 +1,13 @@
 package com.ebookfrenzy.csis4175_groupproject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import com.google.type.DateTime;
 
-public class AnimalSighting {
+public class AnimalSighting implements Parcelable {
     private String userID;
     private String animalType;
     private double latitude;
@@ -69,5 +74,41 @@ public class AnimalSighting {
     }
 
 
+    protected AnimalSighting(Parcel in) {
+        String user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
+        user = in.readString();
+        animalType = in.readString();
+        latitude = in.readDouble();
+        longitude = in.readDouble();
+        description = in.readString();
+        dateTime = in.readLong();
+    }
 
+    public static final Creator<AnimalSighting> CREATOR = new Creator<AnimalSighting>() {
+        @Override
+        public AnimalSighting createFromParcel(Parcel in) {
+            return new AnimalSighting(in);
+        }
+
+        @Override
+        public AnimalSighting[] newArray(int size) {
+            return new AnimalSighting[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        String user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
+        dest.writeString(user);
+        dest.writeString(animalType);
+        dest.writeDouble(latitude);
+        dest.writeDouble(longitude);
+        dest.writeString(description);
+        dest.writeLong(dateTime);
+    }
 }
