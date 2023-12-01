@@ -102,14 +102,9 @@ public class HomePage extends AppCompatActivity {
         task.addOnSuccessListener(location -> {
             if (location != null) {
                 currentLocation = location;
-
                 sendData.putExtra("Lat", currentLocation.getLatitude());
                 sendData.putExtra("Lon", currentLocation.getLongitude());
-                //sendData.putExtra("UID", UID);
-                Toast.makeText(this, "Error finding your location.", Toast.LENGTH_LONG);
-
             } else {
-                Toast.makeText(this, "Error finding your location.", Toast.LENGTH_LONG);
             }
         });
     }

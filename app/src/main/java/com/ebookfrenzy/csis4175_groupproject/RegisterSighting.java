@@ -59,7 +59,13 @@ public class RegisterSighting extends Activity {
             @Override
             public void onClick(View view) {
                 mAuth = FirebaseAuth.getInstance();
-                user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                // DESCOMENTAR NO FUTURO////////////////////////////////////////////////////////////////////////////////
+//                user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                // DESCOMENTAR NO FUTURO////////////////////////////////////////////////////////////////////////////////
+
+
+                user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
 
                 Map<String, Object> sighting = new HashMap<>();
                 sighting.put("user", user);
@@ -67,6 +73,7 @@ public class RegisterSighting extends Activity {
                 sighting.put("longitude", currentLongitude);
                 sighting.put("animal", animalTextEdit.getText().toString());
                 sighting.put("description", descriptionTextEdit.getText().toString());
+                sighting.put("dateTime", System.currentTimeMillis());
 
                 db.collection("sightings").add(sighting)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {

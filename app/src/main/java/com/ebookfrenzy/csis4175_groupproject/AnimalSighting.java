@@ -10,6 +10,8 @@ public class AnimalSighting {
     private String description;
     private long dateTime;
 
+    public AnimalSighting(){}
+
     public AnimalSighting(String userID, String animalType, double latitude, double longitude, String description, long dateTime) {
         this.animalType = animalType;
         this.latitude = latitude;
