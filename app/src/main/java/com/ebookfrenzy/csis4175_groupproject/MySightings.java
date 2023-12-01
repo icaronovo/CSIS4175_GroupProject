@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -21,10 +22,9 @@ public class MySightings extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AnimalSightingAdapter adapter;
 
-    //EXCLUIR ESSA LINHA ABAIXO E DESCOMENTAR A OUTRA
-    String userId = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
-    //String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    //////////////////////////////////////////////////////////////////////////
+
+    //String userId = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
+    String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     List<AnimalSighting> sightings;

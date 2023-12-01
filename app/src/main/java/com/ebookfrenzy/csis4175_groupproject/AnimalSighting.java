@@ -75,8 +75,7 @@ public class AnimalSighting implements Parcelable {
 
 
     protected AnimalSighting(Parcel in) {
-        String user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
-        user = in.readString();
+        userID = in.readString();
         animalType = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
@@ -103,8 +102,7 @@ public class AnimalSighting implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        String user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
-        dest.writeString(user);
+        dest.writeString(userID);
         dest.writeString(animalType);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);

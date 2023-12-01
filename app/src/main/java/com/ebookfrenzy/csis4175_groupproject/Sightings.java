@@ -24,9 +24,7 @@ public class Sightings extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private AnimalSightingAdapter adapter;
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    List<AnimalSighting> sightings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

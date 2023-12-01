@@ -38,11 +38,6 @@ public class AnimalDetails extends AppCompatActivity {
             }
             webView.loadUrl("https://animalia.bio/" + animalUrlFormatted);
         }
-
-
-
-
-
     }
 
     @Override
@@ -50,8 +45,4 @@ public class AnimalDetails extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
-
-
-
 }

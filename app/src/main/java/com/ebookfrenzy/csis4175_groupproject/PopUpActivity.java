@@ -27,13 +27,10 @@ public class PopUpActivity extends AppCompatActivity {
         latitude = animalSighting.getLatitude();
         longitude = animalSighting.getLongitude();
 
-        // Initialize the map fragment
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.popupMap);
 
-        // Asynchronously initialize the map
         mapFragment.getMapAsync(googleMap -> {
-            // Move the camera to the specified location
             LatLng location = new LatLng(latitude, longitude);
             googleMap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(animalSighting.getAnimalType()));
             googleMap.getUiSettings().setZoomControlsEnabled(true);

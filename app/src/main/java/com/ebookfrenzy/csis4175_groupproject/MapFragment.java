@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -75,7 +76,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        // Check if the parent Activity has implemented the listener interface
         try {
             locationSelectedListener = (OnLocationSelectedListener) context;
         } catch (ClassCastException e) {
@@ -85,9 +85,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        //FIX
-        //user = FirebaseAuth.getInstance().getCurrentUser().getUid()
-        user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
+        user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         Log.d("MapFragment", "onMapReady called");
         mMap = googleMap;
@@ -184,21 +182,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private void handleMapClick(LatLng latLng) {
         Log.d("MapFragment", "Map clicked at: " + latLng.latitude + ", " + latLng.longitude);
 
-        // Clear the previous marker
         if (selectedMarker != null) {
             selectedMarker.remove();
         }
 
-        // Add a new marker
         selectedMarker = mMap.addMarker(new MarkerOptions().position(latLng).title("Selected Location"));
 
-        // You can also store the clicked coordinates for further use
-        double clickedLatitude = latLng.latitude;
-        double clickedLongitude = latLng.longitude;
         if (locationSelectedListener != null) {
             locationSelectedListener.onLocationSelected(latLng.latitude, latLng.longitude);
         }
-        // Now, you can use these coordinates as needed, for example, store in Firebase
     }
 
     public interface OnLocationSelectedListener {

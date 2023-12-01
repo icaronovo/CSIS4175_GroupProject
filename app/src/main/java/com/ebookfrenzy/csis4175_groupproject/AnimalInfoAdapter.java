@@ -49,8 +49,6 @@ public class AnimalInfoAdapter extends RecyclerView.Adapter<AnimalInfoAdapter.Vi
         holder.animalName.setText(animal);
 
         holder.itemView.setOnClickListener(onItemClickListener);
-
-
     }
 
     @Override
@@ -61,9 +59,6 @@ public class AnimalInfoAdapter extends RecyclerView.Adapter<AnimalInfoAdapter.Vi
     // Holds reference to the view of each cell
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView animalName;
-
-
-
         ViewHolder(View itemView) {
             super(itemView);
             animalName = itemView.findViewById(R.id.animal);

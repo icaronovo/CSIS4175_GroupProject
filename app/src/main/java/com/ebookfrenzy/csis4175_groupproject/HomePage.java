@@ -17,19 +17,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,8 +50,6 @@ public class HomePage extends AppCompatActivity implements MapFragment.OnLocatio
     Double clickedLatitude;
     Double clickedLongitude;
     String user;
-    Double homeLatitude;
-    Double homeLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +115,8 @@ public class HomePage extends AppCompatActivity implements MapFragment.OnLocatio
         setHomeLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //user = FirebaseAuth.getInstance().getCurrentUser().getUid()
-                user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
+                user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                //user = "ljGBOI0qpMZPhubJB9jV2N7d9E32";
 
                 if (clickedLatitude == null || clickedLongitude == null) {
                     Toast.makeText(HomePage.this, "Please select a place on the map", Toast.LENGTH_LONG).show();

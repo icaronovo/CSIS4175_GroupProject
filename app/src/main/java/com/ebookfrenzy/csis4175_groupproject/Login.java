@@ -41,31 +41,27 @@ public class Login extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                email = String.valueOf(emailInput.getText());
-//                password = String.valueOf(passwordInput.getText());
-//                Log.d("Email", email.toString());
-//                Log.d("password", password.toString());
-//                mAuth.signInWithEmailAndPassword(email, password)
-//                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                if (task.isSuccessful()) {
-//                                    FirebaseUser user = mAuth.getCurrentUser();
-//                                    startActivity(new Intent(Login.this, HomePage.class));
-//                                    finish();
-//                                } else {
-//                                    Toast.makeText(Login.this, "Authentication failed.",
-//                                            Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
+                email = String.valueOf(emailInput.getText());
+                password = String.valueOf(passwordInput.getText());
+                Log.d("Email", email.toString());
+                Log.d("password", password.toString());
+                mAuth.signInWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    startActivity(new Intent(Login.this, HomePage.class));
+                                    finish();
+                                } else {
+                                    Toast.makeText(Login.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                 startActivity(new Intent(Login.this, HomePage.class));
             }
         });
-
-
-
-
 
         signUpButton = findViewById(R.id.signUpButton);
 
