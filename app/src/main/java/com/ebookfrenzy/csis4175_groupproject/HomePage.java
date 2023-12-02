@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -21,12 +22,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,6 +115,7 @@ public class HomePage extends AppCompatActivity implements MapFragment.OnLocatio
             }
         });
 
+
         setHomeLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -162,7 +166,7 @@ public class HomePage extends AppCompatActivity implements MapFragment.OnLocatio
         });
     }
 
-    public void addDataToDatabase () {
+    public void addDataToDatabase() {
 
         List<AnimalSighting> dummyData = new ArrayList<>();
         dummyData.add(new AnimalSighting("ljGBOI0qpMZPhubJB9jV2N7d9E32", "Bear", 40.7128, -74.0060, "Saw a bear near the river.", System.currentTimeMillis()));
@@ -232,8 +236,6 @@ public class HomePage extends AppCompatActivity implements MapFragment.OnLocatio
             }
         }
     }
-
-
 
 
 }
