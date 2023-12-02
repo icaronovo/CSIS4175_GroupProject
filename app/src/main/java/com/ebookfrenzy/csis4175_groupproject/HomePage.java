@@ -70,6 +70,19 @@ public class HomePage extends AppCompatActivity implements MapFragment.OnLocatio
 
         sendData = new Intent(HomePage.this, RegisterSighting.class);
 
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful() && task.getResult() != null) {
+                        String newToken = task.getResult();
+                        Log.e("newToken", newToken);
+                        Map<String, Object> userToken = new HashMap<>();
+                        userToken.put("userToken", newToken);
+                        db.collection("userTokens").add(userToken);
+                    } else {
+                        Log.e("Token retrieval failed", task.getException().getMessage());
+                    }
+                });
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         getCurrentLocation();
 
@@ -110,8 +123,6 @@ public class HomePage extends AppCompatActivity implements MapFragment.OnLocatio
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //addDataToDatabase();
-
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(HomePage.this, Login.class));
             }
