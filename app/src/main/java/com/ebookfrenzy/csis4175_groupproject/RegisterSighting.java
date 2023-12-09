@@ -61,31 +61,36 @@ public class RegisterSighting extends Activity {
                 mAuth = FirebaseAuth.getInstance();
 
 
-                user = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                if (animalTextEdit.getText().toString().equals("")) {
+                    animalTextEdit.setError("Insert animal name.");
+                    animalTextEdit.requestFocus();
+                } else {
+                    user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-                Map<String, Object> sighting = new HashMap<>();
-                sighting.put("user", user);
-                sighting.put("latitude", currentLatitude);
-                sighting.put("longitude", currentLongitude);
-                sighting.put("animal", animalTextEdit.getText().toString());
-                sighting.put("description", descriptionTextEdit.getText().toString());
-                sighting.put("dateTime", System.currentTimeMillis());
+                    Map<String, Object> sighting = new HashMap<>();
+                    sighting.put("user", user);
+                    sighting.put("latitude", currentLatitude);
+                    sighting.put("longitude", currentLongitude);
+                    sighting.put("animal", animalTextEdit.getText().toString());
+                    sighting.put("description", descriptionTextEdit.getText().toString());
+                    sighting.put("dateTime", System.currentTimeMillis());
 
-                db.collection("sightings").add(sighting)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                animalTextEdit.setText("");
-                                descriptionTextEdit.setText("");
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
-                startActivity(new Intent(RegisterSighting.this, HomePage.class));
+                    db.collection("sightings").add(sighting)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    animalTextEdit.setText("");
+                                    descriptionTextEdit.setText("");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                    startActivity(new Intent(RegisterSighting.this, HomePage.class));
+                }
             }
         });
     }

@@ -44,46 +44,51 @@ public class SignUp extends AppCompatActivity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
-
                 email = String.valueOf(emailInput.getText());
                 password = String.valueOf(passwordInput.getText());
                 Log.d("Email", email.toString());
                 Log.d("password", password.toString());
-                if (email.equals("") || password.equals("") ) {
-                    Toast.makeText(SignUp.this, "Missing information!", Toast.LENGTH_LONG).show();
-                } else {
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
 
-                                        Toast.makeText(SignUp.this, "Account created.", Toast.LENGTH_SHORT).show();
-                                        mAuth.signInWithEmailAndPassword(email, password)
-                                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                                        if (task.isSuccessful()) {
-                                                            FirebaseUser user = mAuth.getCurrentUser();
-                                                            startActivity(new Intent(SignUp.this, HomePage.class));
-                                                            finish();
-                                                            progressBar.setVisibility(View.GONE);
-                                                        } else {
-                                                            progressBar.setVisibility(View.GONE);progressBar.setVisibility(View.GONE);
-                                                            Toast.makeText(SignUp.this, "Authentication failed.",
-                                                                    Toast.LENGTH_SHORT).show();
-                                                        }
-                                                    }
-                                                });
 
-                                    } else {
-                                        progressBar.setVisibility(View.GONE);
-                                        // If sign in fails, display a message to the user.
-                                        Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                if (email.equals("")) {
+                    emailInput.setError("Insert email.");
+                    emailInput.requestFocus();
+                }
+
+                if (password.equals("")) {
+                    passwordInput.setError("Insert password.");
+                }
+
+                if (!email.equals("") && !password.equals("")) {
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+
+                                Toast.makeText(SignUp.this, "Account created.", Toast.LENGTH_SHORT).show();
+                                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            startActivity(new Intent(SignUp.this, HomePage.class));
+                                            finish();
+                                            progressBar.setVisibility(View.GONE);
+                                        } else {
+                                            progressBar.setVisibility(View.GONE);
+                                            progressBar.setVisibility(View.GONE);
+                                            Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
-                                }
-                            });
+                                });
+
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 }
             }
         });
