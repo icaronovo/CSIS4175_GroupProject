@@ -111,8 +111,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                         document.getLong("dateTime")));
                                 Log.d("FirebaseData", document.getId() + " => " + document.getData());
                             }
-                            for (AnimalSighting a : sightings) {
-                                mMap.addMarker(new MarkerOptions().position(new LatLng(a.getLatitude(), a.getLongitude())).title(a.getAnimalType()));
+                            for (int i = 0; i < sightings.size(); i++) {
+                                float markerColor;
+                                if (sightings.get(i).getAnimalType().toLowerCase().contains("bear")) {
+                                    markerColor = 359;
+                                } else if (sightings.get(i).getAnimalType().toLowerCase().contains("eagle")) {
+                                    markerColor = 300;
+                                }else if (sightings.get(i).getAnimalType().toLowerCase().contains("deer")) {
+                                    markerColor = 240;
+                                }else if (sightings.get(i).getAnimalType().toLowerCase().contains("moose")) {
+                                    markerColor = 180;
+                                }else if (sightings.get(i).getAnimalType().toLowerCase().contains("coyote")) {
+                                    markerColor = 120;
+                                }else if (sightings.get(i).getAnimalType().toLowerCase().contains("fox")) {
+                                    markerColor = 60;
+                                } else {
+                                    markerColor = 1;
+                                }
+                                mMap.addMarker(new MarkerOptions().position(new LatLng(sightings.get(i).getLatitude(), sightings.get(i).getLongitude())).title(sightings.get(i).getAnimalType()).icon(BitmapDescriptorFactory.defaultMarker(markerColor)));
+
                             }
                         } else {
                             Log.e("FirebaseError", "Error getting documents.", task.getException());
